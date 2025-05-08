@@ -1,0 +1,58 @@
+<!-- sheet.html -->
+
+<div class="sheet-container">
+  <h2>Paradigma Character Sheet</h2>
+
+  <fieldset class="sheet-attributes">
+    <legend>Body Attributes</legend>
+    Potence: <input type="number" name="attr_potence" value="1"><br>
+    Prowess: <input type="number" name="attr_prowess" value="1"><br>
+    Stamina: <input type="number" name="attr_stamina" value="1"><br>
+  </fieldset>
+
+  <fieldset class="sheet-attributes">
+    <legend>Mind Attributes</legend>
+    Reason: <input type="number" name="attr_reason" value="1"><br>
+    Perception: <input type="number" name="attr_perception" value="1"><br>
+    Intuition: <input type="number" name="attr_intuition" value="1"><br>
+  </fieldset>
+
+  <fieldset class="sheet-attributes">
+    <legend>Spirit Attributes</legend>
+    Willpower: <input type="number" name="attr_willpower" value="1"><br>
+    Psyche: <input type="number" name="attr_psyche" value="1"><br>
+    Luck: <input type="number" name="attr_luck" value="1"><br>
+  </fieldset>
+
+  <hr>
+
+  <fieldset class="sheet-health">
+    <legend>Health Gauges</legend>
+    <strong>PHG:</strong> <span name="attr_phg"></span><br>
+    <strong>MHG:</strong> <span name="attr_mhg"></span><br>
+    <strong>SHG:</strong> <span name="attr_shg"></span>
+  </fieldset>
+</div>
+
+<script type="text/worker">
+  on("change:potence change:prowess change:stamina", function() {
+    getAttrs(["potence", "prowess", "stamina"], function(values) {
+      let phg = parseInt(values.potence) + parseInt(values.prowess) + parseInt(values.stamina);
+      setAttrs({ phg: phg });
+    });
+  });
+
+  on("change:reason change:perception change:intuition", function() {
+    getAttrs(["reason", "perception", "intuition"], function(values) {
+      let mhg = parseInt(values.reason) + parseInt(values.perception) + parseInt(values.intuition);
+      setAttrs({ mhg: mhg });
+    });
+  });
+
+  on("change:willpower change:psyche change:luck", function() {
+    getAttrs(["willpower", "psyche", "luck"], function(values) {
+      let shg = parseInt(values.willpower) + parseInt(values.psyche) + parseInt(values.luck);
+      setAttrs({ shg: shg });
+    });
+  });
+</script>
