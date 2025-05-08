@@ -1,0 +1,8 @@
+{
+  "html": "sheet.html",
+  "css": "sheet.css",
+  "authors": "Travis Langford",
+  "roll20userid": "YOUR_USER_ID",
+  "preview": "https://example.com/preview.png",
+  "instructions": "Paradigma character sheet for custom use. Currently tracks attributes and health gauges."
+}
