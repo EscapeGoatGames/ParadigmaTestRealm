@@ -1,33 +1,101 @@
-.sheet-container {
-  font-family: 'Arial', sans-serif;
-  padding: 10px;
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-}
+<div class="sheet-container">
+  <h2>Paradigma Character Sheet</h2>
 
-.sheet-attributes, .sheet-health {
-  margin-bottom: 15px;
-  padding: 10px;
-  background-color: #ffffff;
-  border: 1px solid #999;
-  border-radius: 5px;
-}
+  <div class="sheet-attribute-grid">
 
-.sheet-attributes legend,
-.sheet-health legend {
-  font-weight: bold;
-  font-size: 1.1em;
-  margin-bottom: 5px;
-}
+    <div class="sheet-row">
+      <fieldset class="sheet-attributes">
+        <div class="sheet-section-header">Body Attributes</div>
+        <label>Potence: <input type="number" name="attr_potence" value="1" /></label>
+        <label>Prowess: <input type="number" name="attr_prowess" value="1" /></label>
+        <label>Stamina: <input type="number" name="attr_stamina" value="1" /></label>
+      </fieldset>
+      <fieldset class="sheet-health">
+        <div class="sheet-section-header">PHG</div>
+        <label><input type="text" name="attr_phg" readonly /></label>
+      </fieldset>
+    </div>
 
-input[type="number"] {
-  width: 50px;
-  margin: 5px 10px 5px 0;
-}
+    <div class="sheet-row">
+      <fieldset class="sheet-attributes">
+        <div class="sheet-section-header">Mind Attributes</div>
+        <label>Reason: <input type="number" name="attr_reason" value="1" /></label>
+        <label>Perception: <input type="number" name="attr_perception" value="1" /></label>
+        <label>Intuition: <input type="number" name="attr_intuition" value="1" /></label>
+      </fieldset>
+      <fieldset class="sheet-health">
+        <div class="sheet-section-header">MHG</div>
+        <label><input type="text" name="attr_mhg" readonly /></label>
+      </fieldset>
+    </div>
 
-.sheet-health span[name] {
-  display: inline-block;
-  min-width: 30px;
-  font-weight: bold;
-  color: #444;
-}
+    <div class="sheet-row">
+      <fieldset class="sheet-attributes">
+        <div class="sheet-section-header">Spirit Attributes</div>
+        <label>Willpower: <input type="number" name="attr_willpower" value="1" /></label>
+        <label>Psyche: <input type="number" name="attr_psyche" value="1" /></label>
+        <label>Luck: <input type="number" name="attr_luck" value="1" /></label>
+      </fieldset>
+      <fieldset class="sheet-health">
+        <div class="sheet-section-header">SHG</div>
+        <label><input type="text" name="attr_shg" readonly /></label>
+      </fieldset>
+    </div>
+
+    <div class="sheet-row sheet-initiative-row">
+  <label>Initiative: <input type="text" name="attr_initiative" readonly /></label>
+</div>
+
+
+  </div>
+</div>
+<input type="hidden" name="attr_potence" value="1" />
+<input type="hidden" name="attr_prowess" value="1" />
+<input type="hidden" name="attr_stamina" value="1" />
+
+<input type="hidden" name="attr_reason" value="1" />
+<input type="hidden" name="attr_perception" value="1" />
+<input type="hidden" name="attr_intuition" value="1" />
+
+<input type="hidden" name="attr_willpower" value="1" />
+<input type="hidden" name="attr_psyche" value="1" />
+<input type="hidden" name="attr_luck" value="1" />
+
+<script type="text/worker">
+  // Helper: parseInt wrapper
+const toInt = (v) => parseInt(v) || 0;
+
+// PHG = Potence + Prowess + Stamina
+on("change:potence change:prowess change:stamina sheet:opened", () => {
+  getAttrs(["potence", "prowess", "stamina"], (v) => {
+    const total = toInt(v.potence) + toInt(v.prowess) + toInt(v.stamina);
+    setAttrs({ phg: total });
+  });
+});
+
+// MHG = Reason + Perception + Intuition
+on("change:reason change:perception change:intuition sheet:opened", () => {
+  getAttrs(["reason", "perception", "intuition"], (v) => {
+    const total = toInt(v.reason) + toInt(v.perception) + toInt(v.intuition);
+    setAttrs({ mhg: total });
+  });
+});
+
+// SHG = Willpower + Psyche + Luck
+on("change:willpower change:psyche change:luck sheet:opened", () => {
+  getAttrs(["willpower", "psyche", "luck"], (v) => {
+    const total = toInt(v.willpower) + toInt(v.psyche) + toInt(v.luck);
+    setAttrs({ shg: total });
+  });
+});
+
+// Initiative = Prowess + Intuition + Luck
+on("change:prowess change:intuition change:luck sheet:opened", () => {
+  getAttrs(["prowess", "intuition", "luck"], (v) => {
+    const total = toInt(v.prowess) + toInt(v.intuition) + toInt(v.luck);
+    setAttrs({ initiative: total });
+  });
+});
+
+
+</script>
