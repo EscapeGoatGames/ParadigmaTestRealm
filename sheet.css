@@ -1,0 +1,33 @@
+.sheet-container {
+  font-family: 'Arial', sans-serif;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+}
+
+.sheet-attributes, .sheet-health {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border-radius: 5px;
+}
+
+.sheet-attributes legend,
+.sheet-health legend {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+input[type="number"] {
+  width: 50px;
+  margin: 5px 10px 5px 0;
+}
+
+.sheet-health span[name] {
+  display: inline-block;
+  min-width: 30px;
+  font-weight: bold;
+  color: #444;
+}
